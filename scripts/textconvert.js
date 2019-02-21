@@ -1,4 +1,5 @@
 const ALPHABET = {
+    ' ': [],
     A: [3, 4, 10, 13, 18, 21, 25, 30, 33, 34, 35, 36, 37, 38, 41, 46, 49, 54, 57, 62]
 }
 
@@ -20,6 +21,9 @@ export default class Letter {
 
     convert(emoji) {
         if(Object.keys(ALPHABET).includes(this.letter)) {
+            if(this.letter === ' ') {
+                return this;
+            }
             let squares = 0;
             while(squares < this.width ** 2) {
                 let div = document.createElement('div');
@@ -31,7 +35,7 @@ export default class Letter {
                 this.div.appendChild(div);
                 squares += 1;
             }
-            return true;
+            return this;
         } else {
             return new Error('invalid letter');
         }
