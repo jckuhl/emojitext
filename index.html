@@ -8,9 +8,15 @@
     <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
-    <div class="face-container">
+    <header>
+        <h1>EmojiText!</h1>
+    </header>
+    <p>This is just a fun little toy that turns your text into letters and numbers made emojis.  It serves no useful purpose and was something I made (most of it anyways) while bored waiting for an airplane.</p>
+    <p>As the plotting of each letter in their individual grids is tedious, this only takes alphabetical and numeric characters, anything else will be rejected.  Don't use punctuation.  Spaces are acceptable.</p>
+    <p><a href="https://github.com/jckuhl/emojitext" target="_blank" rel="noreferrer noopener">Github</a></p>
+    <section class="face-container">
 
-    </div>
+    </section>
     <div id="currentFace"></div>
     <button class="random">Random Faces!</button>
     <form>
@@ -19,8 +25,8 @@
         </label>
         <button class="submit">Convert!</button>
     </form>
-    <div id="textgrid" class="emojitext">
-    </div>
+    <section id="textgrid" class="emojitext">
+    </section>
     <script src="./scripts/app.js" type="module"></script>
 </body>
 </html>

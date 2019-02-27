@@ -1,17 +1,28 @@
-import Letter from './textconvert.js';
+import EmojiLetter from './emojiletter.js';
 import faces from './faces.js';
+import alphabetPlots from './alphabetplots.js';
 import random from './random.js';
-import ALPHABET from './alphabetplots.js';
 
 const textGrid = document.getElementById('textgrid');
 const faceGrid = document.querySelector('.face-container');
 const currentFaceDiv = document.getElementById('currentFace');
 let currentFace = -1;
 
-function createEmojiText(string, parent, emoji) {
+/**
+ * Converts a string to emoji text and attaches it to a parent div.
+ * Takes in an object of plots for each accepted character
+ * Either takes an emoji string, or an array of emojis
+ * If emoji an array, it will pick a random emoji from that array
+ *
+ * @param {String} string The string to be converted
+ * @param {HTMLElement} parent The div to attach the text to
+ * @param {Object} plots An object of plots of grid positions
+ * @param {String | String[]} emoji An emoji or an array of emojis
+ */
+function createEmojiText(string, parent, plots, emoji) {
     const letters = string.split('').map(letter => {
-        const emojiLetter = new Letter(letter);
-        return emojiLetter.convert(emoji, ALPHABET);
+        const emojiLetter = new EmojiLetter(letter, 8);
+        return emojiLetter.convert(emoji, plots);
     });
     let error = letters.find(letter => letter instanceof Error);
     if(error) {
@@ -23,7 +34,7 @@ function createEmojiText(string, parent, emoji) {
 
 const divs = faces.map(face => {
     const div = document.createElement('div');
-    div.innerHTML = face.face;
+    div.innerHTML = face;
     div.dataset.index = face.index;
     div.dataset.selected = false;
     div.style.width = '20px';
@@ -31,7 +42,7 @@ const divs = faces.map(face => {
     div.addEventListener('click', (event)=> {
         event.preventDefault();
         divs.forEach(div => div.dataset.selected = false);
-        currentFace = parseInt(event.target.dataset.index);
+        currentFace = event.target.innerHTML;
         currentFaceDiv.innerHTML = event.target.innerHTML;
     });
     faceGrid.appendChild(div);
@@ -50,10 +61,10 @@ button.addEventListener('click', (event)=> {
     textGrid.innerHTML = '';
     event.preventDefault();
     if(currentFace !== -1 && currentFace !== 'random') {
-        createEmojiText(input.value, textGrid, faces[currentFace].face)
+        createEmojiText(input.value, textGrid, alphabetPlots, currentFace)
     } else if (currentFace === 'random') {
-        createEmojiText(input.value, textGrid, faces[random(faces.length)].face);
+        createEmojiText(input.value, textGrid, alphabetPlots, faces);
     } else {
-        createEmojiText(input.value, textGrid, faces[0].face);
+        createEmojiText(input.value, textGrid, alphabetPlots, faces[random(faces.length)]);
     }
 });

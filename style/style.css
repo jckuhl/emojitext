@@ -1,10 +1,12 @@
 .emojitext {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-column-gap: 0.5rem;
+    grid-row-gap: 1rem;
 }
 
 .face-container {
     display: grid;
     grid-template-columns: repeat(15, 1fr);
-    grid-template-rows: repeat(9, 1fr);
     width: calc(15 * 20px);
 }
