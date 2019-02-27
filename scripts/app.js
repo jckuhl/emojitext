@@ -35,7 +35,6 @@ function createEmojiText(string, parent, plots, emoji) {
 const divs = faces.map(face => {
     const div = document.createElement('div');
     div.innerHTML = face;
-    div.dataset.index = face.index;
     div.dataset.selected = false;
     div.style.width = '20px';
     div.style.height = '20px';
@@ -50,12 +49,12 @@ const divs = faces.map(face => {
 });
 
 const button = document.querySelector('.submit');
-const input = document.getElementById('emojiinput')
+const input = document.getElementById('emojiinput');
 
 const randBtn = document.querySelector('.random');
 randBtn.addEventListener('click', ()=> {
-    currentFace = 'random';
-})
+    currentFaceDiv.innerHTML = currentFace = 'random';
+});
 
 button.addEventListener('click', (event)=> {
     textGrid.innerHTML = '';
