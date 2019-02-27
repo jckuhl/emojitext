@@ -1,8 +1,3 @@
-const ALPHABET = {
-    ' ': [],
-    A: [3, 4, 10, 13, 18, 21, 25, 30, 33, 34, 35, 36, 37, 38, 41, 46, 49, 54, 57, 62]
-}
-
 export default class Letter {
     constructor(letter) {
         this.width = 8;
@@ -15,12 +10,12 @@ export default class Letter {
         this.div.style.height = 10*8 + 'px';
     }
 
-    attach(parent) {
+    attachTo(parent) {
         parent.appendChild(this.div);
     }
 
-    convert(emoji) {
-        if(Object.keys(ALPHABET).includes(this.letter)) {
+    convert(emoji, plots) {
+        if(Object.keys(plots).includes(this.letter)) {
             if(this.letter === ' ') {
                 return this;
             }
@@ -29,7 +24,7 @@ export default class Letter {
                 let div = document.createElement('div');
                 div.style.width = '10px';
                 div.style.height = '10px';
-                if(ALPHABET[this.letter].includes(squares)) {
+                if(plots[this.letter].includes(squares)) {
                     div.innerHTML = emoji;
                 }
                 this.div.appendChild(div);
@@ -37,7 +32,7 @@ export default class Letter {
             }
             return this;
         } else {
-            return new Error('invalid letter');
+            return new Error('Please only use alphabetical or numeric characters and spaces');
         }
     }
 }

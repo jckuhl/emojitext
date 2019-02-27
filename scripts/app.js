@@ -1,6 +1,7 @@
 import Letter from './textconvert.js';
 import faces from './faces.js';
 import random from './random.js';
+import ALPHABET from './alphabetplots.js';
 
 const textGrid = document.getElementById('textgrid');
 const faceGrid = document.querySelector('.face-container');
@@ -10,13 +11,13 @@ let currentFace = -1;
 function createEmojiText(string, parent, emoji) {
     const letters = string.split('').map(letter => {
         const emojiLetter = new Letter(letter);
-        return emojiLetter.convert(emoji);
+        return emojiLetter.convert(emoji, ALPHABET);
     });
     let error = letters.find(letter => letter instanceof Error);
     if(error) {
         parent.innerHTML = error.message;
     } else {
-        letters.forEach(letter => letter.attach(parent));
+        letters.forEach(letter => letter.attachTo(parent));
     }
 }
 
